@@ -22,7 +22,7 @@ class MistralClient
                 requestTimeout: config('mistral.request_timeout', 60),
                 connectTimeout: config('mistral.connect_timeout', 30)
             );
-            if (config('mistral.session_enabled')) {
+            if (config('mistral.session_enabled',false)) {
                 SessionHelper::enable();
                 SessionHelper::setHistory(config('mistral.session_history', 10));
             } else {
@@ -44,7 +44,7 @@ class MistralClient
                 requestTimeout: config('mistral.request_timeout', 60),
                 connectTimeout: config('mistral.connect_timeout', 30)
             );
-            if (config('mistral.session_enabled')) {
+            if (config('mistral.session_enabled',false)) {
                 SessionHelper::enable();
                 SessionHelper::setHistory(config('mistral.session_history', 10));
             } else {
