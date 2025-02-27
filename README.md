@@ -17,7 +17,7 @@ composer require board3r/mistral-laravel-plugin
 ## Setup
 Publish the mistral.php config
 ```
-php artisan vendor:publish --tag=mistral-laravel-plugin-config
+php artisan vendor:publish --tag=mistral-plugin-config
 ```
 
 Configure your API KEY in the config

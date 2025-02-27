@@ -10,7 +10,7 @@ class MistralServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package):void
     {
-        $package->name('mistral-laravel-plugin')
+        $package->name('laravel-mistral-plugin')
             ->hasConfigFile('mistral')
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command->publishConfigFile();
