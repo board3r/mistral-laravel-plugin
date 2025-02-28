@@ -2,7 +2,8 @@
 
 namespace Board3r\MistralLaravelPlugin\Client;
 
-use Board3r\MistralSdk\Helpers\SessionHelper;
+use Board3r\MistralLaravelPlugin\Helpers\LaravelSessionHandler;
+use Board3r\MistralSdk\Helpers\HistoryHelper;
 use Board3r\MistralSdk\Mistral;
 
 class MistralClient
@@ -22,14 +23,20 @@ class MistralClient
                 requestTimeout: config('mistral.request_timeout', 60),
                 connectTimeout: config('mistral.connect_timeout', 30)
             );
-            if (config('mistral.session_enabled',false)) {
-                SessionHelper::enable();
-                SessionHelper::setHistory(config('mistral.session_history', 10));
-            } else {
-                SessionHelper::disable();
-            }
+            self::setHistory();
         }
         return self::$Client;
+    }
+
+    protected static function setHistory():void
+    {
+        if (config('mistral.session_enabled',false)) {
+            HistoryHelper::setSessionHandler(LaravelSessionHandler::class);
+            HistoryHelper::enable();
+            HistoryHelper::setParamHistory(config('mistral.session_history', 10));
+        } else {
+            HistoryHelper::disable();
+        }
     }
 
     /**
@@ -44,12 +51,7 @@ class MistralClient
                 requestTimeout: config('mistral.request_timeout', 60),
                 connectTimeout: config('mistral.connect_timeout', 30)
             );
-            if (config('mistral.session_enabled',false)) {
-                SessionHelper::enable();
-                SessionHelper::setHistory(config('mistral.session_history', 10));
-            } else {
-                SessionHelper::disable();
-            }
+            self::setHistory();
         }
         return self::$CodestralClient;
     }
